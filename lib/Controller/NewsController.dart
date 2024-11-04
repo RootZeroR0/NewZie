@@ -21,6 +21,7 @@ class NewsController extends GetxController {
   RxBool isAppleLoading = false.obs;
   RxBool isBuisLoading = false.obs;
   RxBool isSpeeking = false.obs;
+  RxInt selectedCategoryIndex = 0.obs;
 
   void onInit() async {
     super.onInit();
@@ -31,10 +32,27 @@ class NewsController extends GetxController {
     getBusinessNews();
   }
 
+  void changeCategory(int index) {
+    selectedCategoryIndex.value = index;
+  }
+
+  RxList<NewsModel> get currentNews {
+    switch (selectedCategoryIndex.value) {
+      case 0:
+        return business5News;
+      case 1:
+        return apple5News;
+      case 2:
+        return tesla5News;
+      default:
+        return newsForYouList;
+    }
+  }
+
   Future<void> getTrendingNews() async {
     isTrendingLoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -57,7 +75,7 @@ class NewsController extends GetxController {
   Future<void> getNewsForYou() async {
     isNewsForULoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/everything?domains=wsj.com&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -68,9 +86,9 @@ class NewsController extends GetxController {
         for (var news in articals) {
           newsForYouList.add(NewsModel.fromJson(news));
         }
-        newsForYou5.value = newsForYouList.sublist(0, 5).obs;
+        newsForYou5.value = newsForYouList.sublist(0, 2).obs;
       } else {
-        print("Something went Wrong in Trending News");
+        print("Something went Wrong in getNews4u News");
       }
     } catch (ex) {
       print(ex);
@@ -81,7 +99,7 @@ class NewsController extends GetxController {
   Future<void> getAppleNews() async {
     isAppleLoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/everything?q=apple&from=2024-01-21&to=2024-01-21&sortBy=popularity&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/everything?q=apple&from=2024-11-02&to=2024-11-02&sortBy=popularity&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -94,7 +112,7 @@ class NewsController extends GetxController {
         }
         apple5News.value = appleNewsList.sublist(0, 5).obs;
       } else {
-        print("Something went Wrong in Trending News");
+        print("Something went Wrong in apple News");
       }
     } catch (ex) {
       print(ex);
@@ -105,7 +123,7 @@ class NewsController extends GetxController {
   Future<void> getTeslaNews() async {
     isTeslaLoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/everything?q=tesla&from=2023-12-22&sortBy=publishedAt&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/everything?q=tesla&from=2024-10-03&sortBy=publishedAt&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -118,7 +136,7 @@ class NewsController extends GetxController {
         }
         tesla5News.value = teslaNewsList.sublist(0, 5).obs;
       } else {
-        print("Something went Wrong in Trending News");
+        print("Something went Wrong in Tesla News");
       }
     } catch (ex) {
       print(ex);
@@ -129,7 +147,7 @@ class NewsController extends GetxController {
   Future<void> getBusinessNews() async {
     isBuisLoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -142,7 +160,7 @@ class NewsController extends GetxController {
         }
         business5News.value = businessNewsList.sublist(0, 5).obs;
       } else {
-        print("Something went Wrong in Trending News");
+        print("Something went Wrong in business News");
       }
     } catch (ex) {
       print(ex);
@@ -153,7 +171,7 @@ class NewsController extends GetxController {
   Future<void> searchNews(String search) async {
     isNewsForULoading.value = true;
     var baseURL =
-        "https://newsapi.org/v2/everything?q=$search&apiKey=ea97c6bb67b040759084c3c20ea5e5cf";
+        "https://newsapi.org/v2/everything?q=$search&apiKey=79a38a9ae80d4d51bf9bf8178fbeda3a";
     try {
       var response = await http.get(Uri.parse(baseURL));
       print(response);
@@ -171,12 +189,11 @@ class NewsController extends GetxController {
           }
         }
       } else {
-        print("Something went Wrong in Trending News");
+        print("Something went Wrong in Search News");
       }
     } catch (ex) {
       print(ex);
     }
     isNewsForULoading.value = false;
   }
-
 }

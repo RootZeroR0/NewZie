@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class TrendingCard extends StatelessWidget {
   final String imageUrl;
   final String tag;
-  final String time;
   final String title;
   final String author;
   final VoidCallback ontap;
@@ -11,7 +10,6 @@ class TrendingCard extends StatelessWidget {
       {super.key,
       required this.imageUrl,
       required this.tag,
-      required this.time,
       required this.title,
       required this.author,
       required this.ontap});
@@ -50,10 +48,6 @@ class TrendingCard extends StatelessWidget {
             children: [
               Text(
                 tag,
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              Text(
-                time,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             ],

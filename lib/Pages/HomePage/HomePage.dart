@@ -19,34 +19,17 @@ class HomePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 40),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "NEWZIE",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.primaryContainer,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: const Icon(Icons.search),
-                    ),
-                  )
-                ],
-              ),
               const SizedBox(height: 30),
+              const Text(
+                "NEWZIE",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontFamily: "Poppins",
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
+              ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -79,8 +62,7 @@ class HomePage extends StatelessWidget {
                                     imageUrl: e.urlToImage!,
                                     title: e.title!,
                                     author: e.author ?? "Unknown",
-                                    tag: "Trending no 1",
-                                    time: e.publishedAt!,
+                                    tag: "Trending news",
                                   ),
                                 )
                                 .toList(),
@@ -99,7 +81,7 @@ class HomePage extends StatelessWidget {
               const SizedBox(height: 20),
               Obx(
                 () => newsController.isNewsForULoading.value
-                    ? Column(
+                    ? const Column(
                         children: [
                           NewsTileLoading(),
                           NewsTileLoading(),
@@ -123,7 +105,6 @@ class HomePage extends StatelessWidget {
                             .toList(),
                       ),
               ),
-              const SizedBox(height: 20),
             ],
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:news_app/Controller/NewsController.dart';
 import 'package:news_app/Model/NewsModel.dart';
 
@@ -60,7 +59,7 @@ class NewsDetailsPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   news.title!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
                   ),
@@ -69,7 +68,7 @@ class NewsDetailsPage extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${news.author} * ${news.publishedAt}",
+                      "${news.publishedAt}".substring(0, 10),
                       style: Theme.of(context).textTheme.labelSmall,
                     )
                   ],
@@ -104,11 +103,7 @@ class NewsDetailsPage extends StatelessWidget {
                     Flexible(
                       child: Text(
                         news.description ?? "No Description",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .secondaryContainer),
+                        style: TextStyle(fontSize: 18, color: Colors.black),
                       ),
                     ),
                   ],
